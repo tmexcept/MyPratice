@@ -74,31 +74,31 @@ public class SlidingMenuActivity extends Activity {
     private void initMenuDatas(){
         mMenuDatas = new ArrayList<>();
         mMenuDatas.add(new MenuItem(R.drawable.menu_1 , "菜单1"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_2 , "菜单2"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_3, "菜单3"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_4, "菜单4"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_5, "菜单5"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_6 , "菜单6"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_7 , "菜单7"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_8, "菜单8"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_9 , "菜单9"));
-        mMenuDatas.add(new MenuItem(R.drawable.menu_10, "菜单10"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1 , "菜单2"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1, "菜单3"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1, "菜单4"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1, "菜单5"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1 , "菜单6"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1 , "菜单7"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1, "菜单8"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1 , "菜单9"));
+        mMenuDatas.add(new MenuItem(R.drawable.menu_1, "菜单10"));
     }
     private void initContentDatas(){
         mContentDatas = new ArrayList<>();
         mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 1"));
-        mContentDatas.add(new ContentItem(R.drawable.content_2 , "Content - 2"));
-        mContentDatas.add(new ContentItem(R.drawable.content_3 , "Content - 3"));
-        mContentDatas.add(new ContentItem(R.drawable.content_4 , "Content - 4"));
-        mContentDatas.add(new ContentItem(R.drawable.content_5 , "Content - 5"));
-        mContentDatas.add(new ContentItem(R.drawable.content_6 , "Content - 6"));
-        mContentDatas.add(new ContentItem(R.drawable.content_7 , "Content - 7"));
-        mContentDatas.add(new ContentItem(R.drawable.content_8 , "Content - 8"));
-        mContentDatas.add(new ContentItem(R.drawable.content_9 , "Content - 9"));
-        mContentDatas.add(new ContentItem(R.drawable.content_10 , "Content - 10"));
-        mContentDatas.add(new ContentItem(R.drawable.content_11 , "Content - 11"));
-        mContentDatas.add(new ContentItem(R.drawable.content_12 , "Content - 12"));
-        mContentDatas.add(new ContentItem(R.drawable.content_13 , "Content - 13"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 2"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 3"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 4"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 5"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 6"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 7"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 8"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 9"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 10"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 11"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 12"));
+        mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 13"));
     }
 
 }

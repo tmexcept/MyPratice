@@ -3,15 +3,12 @@ package com.hu.customview.slidingmenu;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
-
-import com.nineoldandroids.view.ViewHelper;
 
 
 public class SlidingMenu extends LinearLayout {
@@ -30,8 +27,6 @@ public class SlidingMenu extends LinearLayout {
     private int mLastYIntercept;
     private float scale;
     private boolean isOpen;
-
-
 
     public SlidingMenu(Context context) {
         this(context, null, 0);
@@ -112,6 +107,9 @@ public class SlidingMenu extends LinearLayout {
         return intercept;
     }
 
+    // TODO: 2016/6/7 scrollTo(int x, int y) 是将View中内容滑动到相应的位置，
+    // 参考的坐标系原点为parent View的左上角。
+    // scrollTo(100, 100)是向左向上移动100像素，如果是负数则是向右向下移动view的内容
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
@@ -125,40 +123,29 @@ public class SlidingMenu extends LinearLayout {
                 int currentY = (int) event.getY();
                 //拿到x方向的偏移量
                 int dx = currentX - mLastX;
-                Log.e("volley", dx+"  "+"   getScrollX() = "+getScrollX());
-                if (dx > 0){//向右滑动
+//                Log.e("volley", dx+"  "+"   getScrollX() = "+getScrollX()+"  menuwidth = "+mMenuWidth);
+                if (dx > 0){//手指向右滑动
                     //边界控制，如果Menu已经完全显示，再滑动的话
                     //Menu左侧就会出现白边了,进行边界控制
-//                    if (getScrollX() + Math.abs(dx) >= 0) {
-//                        //直接移动到（0，0）位置，不会出现白边
-////                        scrollTo(0, 0);
-////                        mMenu.setTranslationX(0);
-//                    } else {//Menu没有完全显示呢
-//                        //其实这里dx还是-dx，大家不用刻意去记
-//                        //大家可以先使用dx，然后运行一下，发现
-//                        //移动的方向是相反的，那么果断这里加个负号就可以了
-//                        scrollBy(dx, 0);
-////                        slidingMode2() ;
-//                    }
-                    scrollBy(-dx, 0);
-                        ViewHelper.setTranslationX(mMenu, 0);
+                    if (getScrollX() - dx <= 0) {
+                        //直接移动到（0，0）位置，不会出现白边
+                        scrollTo(0, 0);
+                    } else {//Menu没有完全显示呢
+                        //其实这里dx还是-dx，大家不用刻意去记
+                        //大家可以先使用dx，然后运行一下，发现
+                        //移动的方向是相反的，那么果断这里加个负号就可以了
+                        scrollBy(-dx, 0);
+                    }
 
-                }else{//向左滑动
+                }else{//手指向左滑动
                     //边界控制，如果Content已经完全显示，再滑动的话
                     //Content右侧就会出现白边了，进行边界控制
-//                    if (getScrollX() + Math.abs(dx) >= 0) {
-////                    if (getScrollX() - dx <= mMenuWidth) {
-//                        //直接移动到（-mMenuWidth,0）位置，不会出现白边
-////                        scrollTo(mMenuWidth, 0);
-//                        scrollTo(getScrollX() + dx, 0);
-//                        mMenu.setTranslationX(0);
-//                    } else {//Content没有完全显示呢
-//                        //根据手指移动
-//                        scrollBy(-dx, 0);
-////                        slidingMode2();
-//                    }
-                    scrollBy(-dx, 0);
-                    ViewHelper.setTranslationX(mMenu, dx);
+                    if (getScrollX() + Math.abs(dx) >= mMenuWidth) {
+                        //直接移动到（mMenuWidth,0）位置，不会出现白边
+                        scrollTo(mMenuWidth, 0);
+                    } else {//Content没有完全显示呢 根据手指移动
+                        scrollBy(-dx, 0);
+                    }
 
                 }
                 mLastX = currentX;
@@ -175,8 +162,7 @@ public class SlidingMenu extends LinearLayout {
                     isOpen = true;
                     //一定不要忘了调用这个方法重绘，否则没有动画效果
                     invalidate();
-                }else{//关闭Menu
-                    //同上
+                }else{//关闭Menu 同上
                     mScroller.startScroll(getScrollX(), 0, -getScrollX(), 0, 300);
                     isOpen = false;
                     invalidate();
@@ -204,14 +190,8 @@ public class SlidingMenu extends LinearLayout {
         }
     }
 
-    private void slidingMode1(){
-
-    }
-
     private void slidingMode2(){
-//        mMenu.setTranslationX(2*(mMenuWidth+getScrollX())/3);
-        Log.e("volley", getScrollX()+"   ");
-        mContent.setTranslationX(-getScrollX());
+        mMenu.setTranslationX(-getScrollX());
     }
 
     private void slidingMode3(){
