@@ -3,6 +3,7 @@ package com.hu.customview.slidingmenu;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class SlidingMenu extends LinearLayout {
         //设置Menu距离屏幕右侧的距离，convertToDp是将代码中的100转换成100dp
         mMenuRightPadding = convertToDp(context,100);
         mScroller = new Scroller(context);
-        isOpen = false;
+        isOpen = true;
     }
 
     @Override
@@ -107,9 +108,13 @@ public class SlidingMenu extends LinearLayout {
         return intercept;
     }
 
-    // TODO: 2016/6/7 scrollTo(int x, int y) 是将View中内容滑动到相应的位置，
-    // 参考的坐标系原点为parent View的左上角。
-    // scrollTo(100, 100)是向左向上移动100像素，如果是负数则是向右向下移动view的内容
+    //// TODO: 2016/6/7 调用View的scrollTo()和scrollBy()是用于滑动View中的内容，而不是把某个View的位置进行改变。如果想改变莫个View在屏幕中的位置，可以使用如下的方法。
+        //调用public void offsetLeftAndRight(int offset)用于左右移动方法或public void offsetTopAndBottom(int offset)用于上下移动。
+        //如：button.offsetLeftAndRignt(300)表示将button控件向左移动300个像素。
+    
+    //// TODO: 2016/6/7 scrollTo(int x, int y) 是将View中内容滑动到相应的位置，
+        // 参考的坐标系原点为parent View的左上角。
+        // scrollTo(100, 100)是向左向上移动100像素，如果是负数则是向右向下移动view的内容
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
@@ -123,18 +128,20 @@ public class SlidingMenu extends LinearLayout {
                 int currentY = (int) event.getY();
                 //拿到x方向的偏移量
                 int dx = currentX - mLastX;
-//                Log.e("volley", dx+"  "+"   getScrollX() = "+getScrollX()+"  menuwidth = "+mMenuWidth);
+                Log.e("volley", dx+"  "+"   getScrollX() = "+getScrollX()+"  menuwidth = "+mMenuWidth);
                 if (dx > 0){//手指向右滑动
                     //边界控制，如果Menu已经完全显示，再滑动的话
                     //Menu左侧就会出现白边了,进行边界控制
                     if (getScrollX() - dx <= 0) {
                         //直接移动到（0，0）位置，不会出现白边
                         scrollTo(0, 0);
+                        mMenu.setTranslationX(0);
                     } else {//Menu没有完全显示呢
                         //其实这里dx还是-dx，大家不用刻意去记
                         //大家可以先使用dx，然后运行一下，发现
                         //移动的方向是相反的，那么果断这里加个负号就可以了
                         scrollBy(-dx, 0);
+                        slidingMemu();
                     }
 
                 }else{//手指向左滑动
@@ -143,8 +150,10 @@ public class SlidingMenu extends LinearLayout {
                     if (getScrollX() + Math.abs(dx) >= mMenuWidth) {
                         //直接移动到（mMenuWidth,0）位置，不会出现白边
                         scrollTo(mMenuWidth, 0);
+                        mMenu.setTranslationX(0);
                     } else {//Content没有完全显示呢 根据手指移动
                         scrollBy(-dx, 0);
+                        slidingMemu();
                     }
 
                 }
@@ -185,13 +194,14 @@ public class SlidingMenu extends LinearLayout {
         if (mScroller.computeScrollOffset()){
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             scale = Math.abs((float)getScrollX()) / (float) mMenuWidth;
-//            slidingMode2();
+            slidingMemu();
             invalidate();
         }
     }
 
-    private void slidingMode2(){
-        mMenu.setTranslationX(-getScrollX());
+    private void slidingMemu(){
+        //translationX滑动是，向右滑动传正值，向左滑动传负值与Scroll相反
+        mMenu.setTranslationX(getScrollX());
     }
 
     private void slidingMode3(){
@@ -221,7 +231,7 @@ public class SlidingMenu extends LinearLayout {
      */
     private void closeMenu() {
         //也是使用startScroll方法，dx和dy的计算方法一样
-        mScroller.startScroll(getScrollX(),0,-getScrollX(),0,500);
+        mScroller.startScroll(getScrollX(),0, mMenuWidth,0,500);
         invalidate();
         isOpen = false;
     }
@@ -230,7 +240,7 @@ public class SlidingMenu extends LinearLayout {
      * 打开menu
      */
     private void openMenu() {
-        mScroller.startScroll(getScrollX(),0,-mMenuWidth-getScrollX(),0,500);
+        mScroller.startScroll(getScrollX(),0,-mMenuWidth,0,500);
         invalidate();
         isOpen = true;
     }
