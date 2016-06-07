@@ -1,4 +1,4 @@
-package com.animator.hu.myapplicationobjectanimator;
+package com.hu.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -14,6 +14,8 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+
+import com.hu.R;
 
 public class TextShowMoreActivity extends AppCompatActivity {
 

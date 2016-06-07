@@ -1,4 +1,4 @@
-package com.animator.hu.myapplicationobjectanimator;
+package com.hu.customview;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.hu.R;
 
 /**
  * Created by hu on 2016/5/3.
@@ -52,6 +54,7 @@ public class CustomTextShowMore extends TextView{
 
         Layout layout = getLayout();
         int lineCount = layout.getLineCount();
+        //第三个参数
         String text = (String) TextUtils.ellipsize(layout.getText(), getPaint(), 15, TextUtils.TruncateAt.START);
         String text2 = (String) TextUtils.ellipsize("dddd23ddddddd23dddd2ddddd23dddd3dddd32323", getPaint(), 15, TextUtils.TruncateAt.END);
         

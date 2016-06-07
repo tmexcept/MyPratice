@@ -1,7 +1,9 @@
-package com.animator.hu.myapplicationobjectanimator;
+package com.hu.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.hu.R;
 
 public class MainActivity extends AppCompatActivity {
 

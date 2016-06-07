@@ -1,4 +1,4 @@
-package com.animator.hu.myapplicationobjectanimator;
+package com.animator.hu.customview;
 
 import org.junit.Test;
 
