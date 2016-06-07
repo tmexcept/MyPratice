@@ -95,15 +95,6 @@ public class CustomTimeShowView extends View{
         topRightTop = (height * bottomZone / totleZone - topRightTop - rectPadding * 3 / 2) / 2 + rectPadding;
     }
 
-    /**
-     * 获取文字的总的高度
-     */
-    private int getHeight(Paint paint, String str){
-        Rect rect  = new Rect();
-        paint.getTextBounds(str, 0, str.length(), rect);
-        return rect.height();
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -208,7 +199,7 @@ public class CustomTimeShowView extends View{
         canvas.drawCircle( baseX, baseY, 5, baseLinePaint);
 
         // TopLine描画 
-        Paint topLinePaint = new Paint( Paint.ANTI_ALIAS_FLAG);
+        Paint topLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         topLinePaint.setColor( Color.LTGRAY);
         canvas.drawLine(0, topY, canvas.getWidth(), topY, topLinePaint);
 

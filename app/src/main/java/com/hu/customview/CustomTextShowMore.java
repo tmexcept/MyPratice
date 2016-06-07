@@ -1,7 +1,6 @@
 package com.hu.customview;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -34,8 +33,6 @@ public class CustomTextShowMore extends TextView{
     public CustomTextShowMore(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs, defStyleAttr);
-
-        Resources resources = context.getResources();
     }
 
     Paint paintText;
@@ -54,7 +51,7 @@ public class CustomTextShowMore extends TextView{
 
         Layout layout = getLayout();
         int lineCount = layout.getLineCount();
-        //第三个参数
+        //第三个参数的意思是文字所占的屏幕的宽度，也就是通过计算出的想要在屏幕中显示的宽度来获取text
         String text = (String) TextUtils.ellipsize(layout.getText(), getPaint(), 15, TextUtils.TruncateAt.START);
         String text2 = (String) TextUtils.ellipsize("dddd23ddddddd23dddd2ddddd23dddd3dddd32323", getPaint(), 15, TextUtils.TruncateAt.END);
         
