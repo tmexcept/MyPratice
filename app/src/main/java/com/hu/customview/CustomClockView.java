@@ -1,4 +1,4 @@
-package com.animator.hu.myapplicationobjectanimator;
+package com.hu.customview;
 
 import android.content.Context;
 import android.graphics.Canvas;
