@@ -1,4 +1,6 @@
-package com.hu.customview;
+package com.animator.hu.myapplicationobjectanimator;
+
+import android.graphics.Paint;
 
 /**
  * Created by hu on 2016/3/10.

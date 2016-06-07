@@ -1,4 +1,4 @@
-package com.animator.hu.customview;
+package com.animator.hu.myapplicationobjectanimator;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

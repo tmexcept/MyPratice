@@ -1,4 +1,4 @@
-package com.hu.customview;
+package com.animator.hu.myapplicationobjectanimator;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,8 +10,6 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-
-import com.hu.R;
 
 /**
  * Created by hu on 2016/5/3.
