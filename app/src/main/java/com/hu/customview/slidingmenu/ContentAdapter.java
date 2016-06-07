@@ -1,63 +1,44 @@
 package com.hu.customview.slidingmenu;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hu.R;
+import com.hu.adapter.BaseAdapterCommon;
+import com.hu.adapter.BaseAdapterItemCommon;
 
 import java.util.List;
 
 /**
  * Created by user on 2016/2/19.
  */
-public class ContentAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<ContentItem> mDatas;
-    private LayoutInflater mInflater;
-    public ContentAdapter(Context context, List<ContentItem> datas){
-        mContext = context;
-        mInflater = LayoutInflater.from(context);
-        mDatas = datas;
-    }
-    @Override
-    public int getCount() {
-        return mDatas.size();
+public class ContentAdapter extends BaseAdapterCommon<ContentItem> {
+    
+    public ContentAdapter(List<ContentItem> datas){
+        super(datas);
     }
 
     @Override
-    public Object getItem(int position) {
-        return mDatas.get(position);
+    public BaseAdapterItemCommon<ContentItem> getItemView(int itemViewType) {
+        return new AdapterItem();
     }
+    
+    class AdapterItem extends BaseAdapterItemCommon<ContentItem>{
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if (convertView == null){
-            convertView = mInflater.inflate(R.layout.slidingmenu_content_item,parent,false);
-            viewHolder = new ViewHolder();
-            viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.content_imageview);
-            viewHolder.mTextView = (TextView) convertView.findViewById(R.id.content_textview);
-            convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder) convertView.getTag();
+        @Override
+        public int getLayoutResId() {
+            return R.layout.slidingmenu_content_item;
         }
-        ContentItem contentItem = mDatas.get(position);
-        viewHolder.mImageView.setImageResource(contentItem.getResId());
-        viewHolder.mTextView.setText(contentItem.getName());
-        return convertView;
-    }
-    private static class ViewHolder{
-        ImageView mImageView;
-        TextView mTextView;
+
+        @Override
+        public void onSetViews() {
+
+        }
+
+        @Override
+        public void onUpdateViews(ContentItem model, int position) {
+            ((ImageView)getView(R.id.content_imageview)).setImageResource(model.getResId());
+            ((TextView)getView(R.id.content_textview)).setText(model.getName());
+        }
     }
 }

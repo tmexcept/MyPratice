@@ -40,7 +40,8 @@ public class SlidingMenuActivity extends Activity {
 
         mMenuListView = (ListView) mMenu.findViewById(R.id.menu_listview);
         initMenuDatas();
-        mMenuAdapter = new MenuAdapter(getApplicationContext(),mMenuDatas);
+        initContentDatas();
+        mMenuAdapter = new MenuAdapter(mMenuDatas);
         mMenuListView.setAdapter(mMenuAdapter);
         mMenuListView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,8 +53,7 @@ public class SlidingMenuActivity extends Activity {
 
         mContentListView = (ListView) mContent.findViewById(R.id.content_listview);
         mMenuToggle = (ImageView) mContent.findViewById(R.id.menu_toggle);
-        initContentDatas();
-        mContentAdapter = new ContentAdapter(getApplicationContext(),mContentDatas);
+        mContentAdapter = new ContentAdapter(mContentDatas);
         mContentListView.setAdapter(mContentAdapter);
         mContentListView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mContentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,6 +84,7 @@ public class SlidingMenuActivity extends Activity {
         mMenuDatas.add(new MenuItem(R.drawable.menu_1 , "菜单9"));
         mMenuDatas.add(new MenuItem(R.drawable.menu_1, "菜单10"));
     }
+    
     private void initContentDatas(){
         mContentDatas = new ArrayList<>();
         mContentDatas.add(new ContentItem(R.drawable.content_1 , "Content - 1"));
