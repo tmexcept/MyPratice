@@ -2,6 +2,9 @@ package com.hu.customview.slidingmenu;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.hu.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,7 +73,33 @@ public class SlidingMenuActivity extends Activity {
                 mSlidingMenu.toggleMenu();
             }
         });
+
+        ViewPager viewPager = (ViewPager) LayoutInflater.from(this).inflate(R.layout.slidingmenu_menu_header, null);
+        viewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return mDatas.size();
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView imageView = new ImageView(SlidingMenuActivity.this);
+                imageView.setImageResource(mDatas.get(position));
+                return imageView;
+            }
+        });
     }
+
+
+    private List<Integer> mDatas = new ArrayList<Integer>(Arrays.asList(
+            R.drawable.menu_1, R.drawable.content_1, R.drawable.menu_1, R.drawable.content_1,
+            R.drawable.menu_1, R.drawable.content_1,R.drawable.menu_1, R.drawable.content_1,
+            R.drawable.menu_1, R.drawable.content_1));
 
     private void initMenuDatas(){
         mMenuDatas = new ArrayList<>();

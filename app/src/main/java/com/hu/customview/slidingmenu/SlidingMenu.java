@@ -1,6 +1,8 @@
 package com.hu.customview.slidingmenu;
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -10,6 +12,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class SlidingMenu extends LinearLayout {
@@ -128,21 +133,20 @@ public class SlidingMenu extends LinearLayout {
                 int currentY = (int) event.getY();
                 //拿到x方向的偏移量
                 int dx = currentX - mLastX;
-                Log.e("volley", dx+"  "+"   getScrollX() = "+getScrollX()+"  menuwidth = "+mMenuWidth);
+                Log.e("volley", dx+"  "+"   getScrollX() = "+getScrollX());
                 if (dx > 0){//手指向右滑动
                     //边界控制，如果Menu已经完全显示，再滑动的话
                     //Menu左侧就会出现白边了,进行边界控制
                     if (getScrollX() - dx <= 0) {
                         //直接移动到（0，0）位置，不会出现白边
                         scrollTo(0, 0);
-                        mMenu.setTranslationX(0);
                     } else {//Menu没有完全显示呢
                         //其实这里dx还是-dx，大家不用刻意去记
                         //大家可以先使用dx，然后运行一下，发现
                         //移动的方向是相反的，那么果断这里加个负号就可以了
                         scrollBy(-dx, 0);
-                        slidingMemu();
                     }
+                    slidingMemu();
 
                 }else{//手指向左滑动
                     //边界控制，如果Content已经完全显示，再滑动的话
@@ -150,11 +154,10 @@ public class SlidingMenu extends LinearLayout {
                     if (getScrollX() + Math.abs(dx) >= mMenuWidth) {
                         //直接移动到（mMenuWidth,0）位置，不会出现白边
                         scrollTo(mMenuWidth, 0);
-                        mMenu.setTranslationX(0);
                     } else {//Content没有完全显示呢 根据手指移动
                         scrollBy(-dx, 0);
-                        slidingMemu();
                     }
+                    slidingMemu();
 
                 }
                 mLastX = currentX;
@@ -243,5 +246,30 @@ public class SlidingMenu extends LinearLayout {
         mScroller.startScroll(getScrollX(),0,-mMenuWidth,0,500);
         invalidate();
         isOpen = true;
+    }
+    
+    public List<ViewPager> mViewPagers = new LinkedList<ViewPager>();
+    public void addViewPager(ViewPager viewPager){
+        if(viewPager != null){
+            mViewPagers.add(viewPager);
+        }
+    }
+    /**
+     * 返回我们touch的ViewPager
+     */
+    private ViewPager getTouchViewPager(List<ViewPager> mViewPagers,
+                                        MotionEvent ev) {
+        if (mViewPagers == null || mViewPagers.size() == 0) {
+            return null;
+        }
+        Rect mRect = new Rect();
+        for (ViewPager v : mViewPagers) {
+            v.getHitRect(mRect);
+
+            if (mRect.contains((int) ev.getX(), (int) ev.getY())) {
+                return v;
+            }
+        }
+        return null;
     }
 }
